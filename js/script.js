@@ -18,7 +18,6 @@ function numeroRandom(min, max){
   return result;
 }
 
-
 var numeriPerdenti = []; //Array dei numeri perdenti
 var numeriUtente = []; //Array dei numeri che l'utente sceglierà (prompt)
 
@@ -35,3 +34,10 @@ while (x < 16) {
   }
 }
 console.log(numeriPerdenti)
+// fine generazione bombe
+
+//chiedere 84 volte all'utente di inserire un numero
+//se il numero inserito è presente nell'array dei numeriPerdenti perde
+//se scrive due volte lo stesso numero perde/inserisce un altro numero
+//altrimenti continua finchè non si manifesta una delle condizioni precedenti
+//se non accadono, l'utente vince
