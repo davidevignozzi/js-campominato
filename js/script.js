@@ -57,10 +57,30 @@ while(listaBombe.length < 16) {
 console.log(listaBombe)
 //
 
+//DIFFICOLTA'
+//chiedo all'utente la difficoltà
+var difficult = parseInt(prompt('Scegli il livello di difficoltà tra 1, 2 o 3'));
+var tentativiMassimi;
+
+switch (difficult) {
+  case 1:
+    tentativiMassimi = 84
+    break;
+  case 2:
+    tentativiMassimi = 64
+    break;
+  case 3:
+    tentativiMassimi = 34
+    break;
+  default: //se scrive qualcosa di diverso da 1,2 o 3 parte da difficoltà 1
+  tentativiMassimi = 84
+}
+
+//START GAME
 var missiliUtente = [];
 var missile;
 
-while (winning(missile, listaBombe) && missiliUtente.length <84) {
+while (winning(missile, listaBombe) && missiliUtente.length < tentativiMassimi) {
 
 // se l'utente non ha scritto un numero presente nell'array[bombe] e non ha raggiunto 84 tentativi
 
@@ -79,12 +99,12 @@ while (winning(missile, listaBombe) && missiliUtente.length <84) {
 
         //se il numero inserito è presente nell'array alert('') + interruzione ciclo
 
-        alert('Hai perso! hai beccato una bomba. Il tuo punteggio è ' + missiliUtente.length + '/84')
+        alert('Hai perso! hai beccato una bomba. Il tuo punteggio è ' + missiliUtente.length + '/' + tentativiMassimi)
       }
 
       missiliUtente.push(missile)
 
-      if (missiliUtente.length === 84) {
+      if (missiliUtente.length === tentativiMassimi) {
 
         // se usa tutti e 84 i tentavi nessuno dei quali presente in [listaBombe]
 
