@@ -1,88 +1,96 @@
-//Creazione numero random
+/*
+      COMPLETATO
+    creare un array
+    creare 16 numeri diversi e pusharli nell'array
+    chiedere 84 volte all'utente di inserire un numero
+    se il numero inserito è presente nell'array dei numeriPerdenti perde
+    se scrive due volte lo stesso numero inserisce un altro numero
+    altrimenti continua finchè non si manifesta una delle condizioni precedenti
+    se non accadono, l'utente vince
+
+    TO DO : BONUS
+    all’inizio il software richiede anche una difficoltà all’utente che cambia il range di numeri casuali:
+    // con difficoltà 0 => tra 1 e 100
+    // con difficoltà 1 =>  tra 1 e 80
+    // con difficoltà 2 => tra 1 e 50
+
+*/
+
+
+// funzione --> ciò che ha scritto l'utente è valido?
+function inputValid(inputString) {
+  if (isNaN(inputString)) {
+    return false;
+  }
+  if (inputString > 100 || inputString <=0) {
+    return false;
+  }
+  return true;
+}
+//
+
+// condizione vittoria
+function winning(sceltaUtente, listaBombe) {
+  if (listaBombe.includes(missile)) {
+    return false
+  }
+  return true
+}
+//
+
+// creazione numero randomico
 function numeroRandom(min, max){
   var result = Math.floor(Math.random() * (max + 1 - min) + min);
   return result;
 }
+//
 
-var numeriPerdenti = []; //Array dei numeri perdenti
+// generazione 16 numeri diversi + push nell'array
+var listaBombe = [];
 
-//genero 16 numeri diversi e li pusho nell'array
-x = 0
-while (x < 16) {
-  var bomba = numeroRandom(1,100)
-  if (bomba !== numeriPerdenti[x]) {
-    numeriPerdenti.push(bomba)
-    x++
-  } else {
-    numeriPerdenti.pop()
-    x--
+while(listaBombe.length < 16) {
+  var bomba = numeroRandom(1,100);
+  if (listaBombe.includes(bomba) === false) {
+    listaBombe.push(bomba)
   }
 }
-console.log(numeriPerdenti)
-// fine generazione bombe
+console.log(listaBombe)
+//
 
-//chiedere 84 volte all'utente di inserire un numero
-//se il numero inserito è presente nell'array dei numeriPerdenti perde
-//se scrive due volte lo stesso numero perde/inserisce un altro numero
-//altrimenti continua finchè non si manifesta una delle condizioni precedenti
-//se non accadono, l'utente vince
+var missiliUtente = [];
+var missile;
 
-var numeriUtente = []; //Array dei numeri utente
-var riscontro = false;
-var numeroGiaInserito = false;
+while (winning(missile, listaBombe) && missiliUtente.length <84) {
 
-for (var i = 0; i < 84; i++) {
-  if (riscontro !== false) {
-    alert('Hai perso, hai trovato una bomba. Peccato hai realizzato ' + numeriUtente.length + ' punti!')
-  } else if (numeroGiaInserito !== false) {
-    alert('Non provare a fregare il game master. Hai inserito due volte lo stesso numero')
-  } else {
+  missile = parseInt(prompt('inserisci un numero da 1 a 100'))
+  if (inputValid(missile)) {
 
-    // utente inserisce un numero
-    var scelta = parseInt(prompt('Inserisci un numero da 1 a 100'))
-    if (isNaN(scelta)) {
-      alert('Non hai inserito un numero')
-    } else if (scelta > 100) {
-      alert('Bro da 1 a 100')
+  // se l'input dell'utente è un numero ed è compreso tra 1 e 100
+
+    if (missiliUtente.includes(missile) === true) {
+
+      // se ha inserito più di una volta lo stesso numero alert('')
+
+      alert('hai già inserito questo numero')
     } else {
+      if (winning(missile, listaBombe) === false) {
 
-      // flag numero già inserito
-      for (var y = 0; y < numeriUtente.length; y++) {
-        if (scelta === numeriUtente[i]) {
-          numeroGiaInserito = true
-        }
-      }
-      if (numeroGiaInserito = false) {
-        numeriUtente.push(scelta)
-        console.log(numeriUtente)
-      }
-      //fine flag numero già inserito
+        //se il numero inserito è presente nell'array alert('') + interruzione ciclo
 
-      //flag numero nell'array dei numeri perdenti
-      for (var z = 0; z < numeriPerdenti.length; z++) {
-        if (scelta === numeriPerdenti[x]) {
-          riscontro = true;
-        }
+        alert('Hai perso! hai beccato una bomba. Il tuo punteggio è ' + missiliUtente.length + '/84')
       }
-      //fine flag numero nell'array dei numeri perdenti
 
-      //vittoria utente
+      missiliUtente.push(missile)
+
+      if (missiliUtente.length === 84) {
+        alert('COMPLIMENTI, HAI VINTO!')
+      }
     }
-    if (numeriUtente.length === 84) {
-      alert('COMPLIMENTI, HAI VINTO!')
-    }
+  } else {
+
+    // se l'input non è un numero o non è un numero compreso tra 1 e 100
+
+    alert('Bro, inserisci un numero da 1 a 100')
   }
 }
-
-// Il computer deve generare 16 numeri casuali tra 1 e 100.
-// I numeri non possono essere duplicati (tadaaa!)
-// In seguito deve chiedere all’utente (100 - 16) volte di inserire un numero alla volta, sempre compreso tra 1 e 100.
-// L’utente non può inserire più volte lo stesso numero.
-// Se il numero è presente nella lista dei numeri generati, la partita termina, altrimenti si continua chiedendo all’utente un altro numero.
-// La partita termina quando il giocatore inserisce un numero “vietato” o raggiunge il numero massimo possibile di numeri consentiti.
-// Al termine della partita il software deve comunicare il punteggio, cioè il numero di volte che l’utente ha inserito un numero consentito.
-// BONUS: (da fare solo se funziona tutto il resto)
-// all’inizio il software richiede anche una difficoltà all’utente che cambia il range di numeri casuali:
-// con difficoltà 0 => tra 1 e 100
-// con difficoltà 1 =>  tra 1 e 80
-// con difficoltà 2 => tra 1 e 50
+console.log(missiliUtente)
