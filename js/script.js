@@ -19,10 +19,10 @@
 
 // funzione --> ciò che ha scritto l'utente è valido?
 function inputValid(inputString) {
-  if (isNaN(inputString)) {
+  if (isNaN(inputString)) { // è un numero?
     return false;
   }
-  if (inputString > 100 || inputString <=0) {
+  if (inputString > 100 || inputString <=0) { // è compreso tra 1 e 100?
     return false;
   }
   return true;
@@ -31,7 +31,7 @@ function inputValid(inputString) {
 
 // condizione vittoria
 function winning(sceltaUtente, listaBombe) {
-  if (listaBombe.includes(missile)) {
+  if (listaBombe.includes(missile)) { // il numero dell'utente è all'interno dell'array delle bombe?
     return false
   }
   return true
@@ -50,7 +50,7 @@ var listaBombe = [];
 
 while(listaBombe.length < 16) {
   var bomba = numeroRandom(1,100);
-  if (listaBombe.includes(bomba) === false) {
+  if (listaBombe.includes(bomba) === false) { // il numero generato è diverso dagli altri (generati)?
     listaBombe.push(bomba)
   }
 }
@@ -61,6 +61,8 @@ var missiliUtente = [];
 var missile;
 
 while (winning(missile, listaBombe) && missiliUtente.length <84) {
+
+// se l'utente non ha scritto un numero presente nell'array[bombe] e non ha raggiunto 84 tentativi
 
   missile = parseInt(prompt('inserisci un numero da 1 a 100'))
   if (inputValid(missile)) {
@@ -83,6 +85,9 @@ while (winning(missile, listaBombe) && missiliUtente.length <84) {
       missiliUtente.push(missile)
 
       if (missiliUtente.length === 84) {
+
+        // se usa tutti e 84 i tentavi nessuno dei quali presente in [listaBombe]
+
         alert('COMPLIMENTI, HAI VINTO!')
       }
     }
