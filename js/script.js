@@ -45,18 +45,6 @@ function numeroRandom(min, max){
 }
 //
 
-// generazione 16 numeri diversi + push nell'array
-var listaBombe = [];
-
-while(listaBombe.length < 16) {
-  var bomba = numeroRandom(1,100);
-  if (listaBombe.includes(bomba) === false) { // il numero generato è diverso dagli altri (generati)?
-    listaBombe.push(bomba)
-  }
-}
-console.log(listaBombe)
-//
-
 //DIFFICOLTA'
 //chiedo all'utente la difficoltà
 var difficult = parseInt(prompt('Scegli il livello di difficoltà tra 1, 2 o 3'));
@@ -65,16 +53,31 @@ var tentativiMassimi;
 switch (difficult) {
   case 1:
     tentativiMassimi = 84
+    max = 100
     break;
   case 2:
     tentativiMassimi = 64
+    max = 80
     break;
   case 3:
     tentativiMassimi = 34
+    max = 50
     break;
   default: //se scrive qualcosa di diverso da 1,2 o 3 parte da difficoltà 1
   tentativiMassimi = 84
 }
+
+// generazione 16 numeri diversi + push nell'array
+var listaBombe = [];
+var max;
+while(listaBombe.length < 16) {
+  var bomba = numeroRandom(1,max);
+  if (listaBombe.includes(bomba) === false) { // il numero generato è diverso dagli altri (generati)?
+    listaBombe.push(bomba)
+  }
+}
+console.log(listaBombe)
+//
 
 //START GAME
 var missiliUtente = [];
@@ -84,7 +87,7 @@ while (winning(missile, listaBombe) && missiliUtente.length < tentativiMassimi) 
 
 // se l'utente non ha scritto un numero presente nell'array[bombe] e non ha raggiunto 84 tentativi
 
-  missile = parseInt(prompt('inserisci un numero da 1 a 100'))
+  missile = parseInt(prompt('inserisci un numero da 1 a ' + max))
   if (inputValid(missile)) {
 
   // se l'input dell'utente è un numero ed è compreso tra 1 e 100
